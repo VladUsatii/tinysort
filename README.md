@@ -4,7 +4,7 @@
 
 [русский](https://github.com/VladUsatii/tinysort/master/README.ru.md) • [lengua española readme](https://github.com/VladUsatii/tinysort/master/README.es.md)
 
-Made this CSV data sorter in an airplane. I got super bored, so I put this together with Python PyQt5, NumPy, PyGame, a few random modules, and a lot of coffee. It could help you visualize 2D and 3D data and draw pixels, as well as model shapes for ML and other types of studies.
+Made this CSV data sorter in an airplane. I got super bored, so I put this together with Python PyQt5, NumPy, SDL2, a few random modules, and a lot of coffee. It could help you visualize 2D and 3D data and draw pixels, as well as model shapes for ML and other types of studies.
 
 ## Install
 
