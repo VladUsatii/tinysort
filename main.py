@@ -5,7 +5,7 @@
 #
 # Extremely lightweight modeling software, used for production at readproduct.com/careers
 #
-# //////////////////////////////////////////////////////////////////////////// #
+#
 #
 # Created by Vlad Usatii in 2 Hours
 #
@@ -13,7 +13,6 @@
 # MIT License
 # Product
 #
-# //////////////////////////////////////////////////////////////////////////// #
 
 # qt5
 from PyQt5 import QtCore, QtWidgets, QtGui
@@ -110,7 +109,7 @@ class Screen(QMainWindow):
 			file_name = dialog.selectedFiles()
 			if file_name[0] != "":
 				with open(file_name[0], 'r') as f:
-					self.useVc(f.read(), f.name)
+					self.useVc(list(f.readlines()), f.name)
 			else:
 				sys.exit(0)
 		self.close()
@@ -140,26 +139,26 @@ class Screen(QMainWindow):
 		... ...          ... ... ...
 		"""
 		coord_all = []
-
-		coord_all.append(list(map(int, coords.split())))
-
-		print(coord_all)
+		for line in coords:
+			coord_all.append(line.split())
 
 		while True:
 			for line in coord_all:
-					data[line[0]:line[0]+2, line[1]:line[1]+2] = [line[2], line[3], line[4]] # add as many as needed
-					ew.blit(data.swapaxes(0, 1))
+				if line[0].isdigit() and line[1].isdigit() and line[2].isdigit() and line[3].isdigit() and line[4].isdigit():
+					x = int(line[0])
+					y = int(line[1])
+					r = int(line[2])
+					g = int(line[3])
+					b = int(line[4])
+					data[x:x+10, y:y+10] = [r, g, b] # add as many as needed
+				else:
+					raise ValueError("\n\nThis file does not match the format 'X Y R G B'. Please revise and try again.\n\n")
+			ew.blit(data.swapaxes(0, 1))
 	
 			# update page with changes
 			updates = sdl2.ext.get_events()
 			for event in updates:
-				if event.type == sdl2.SDL_KEYDOWN:
-					data[:, :] = [0, 0, 0]
-					xp += n
-					yp += n
-					data[x+n:x+xp, y+n:y+yp] = [255,0,0] # add as many as needed
-					n += 10
-				elif event.type == sdl2.SDL_QUIT:
+				if event.type == sdl2.SDL_QUIT:
 					sys.exit(0)
 
 
